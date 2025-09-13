@@ -30,7 +30,7 @@ const Index = () => {
         {/* All Games */}
         <div>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-xl lg:text-2xl font-semibold text-foreground">🎯 All Games</h2>
+            <h2 className="text-xl lg:text-2xl font-semibold text-foreground">🎯 Games</h2>
             <div className="text-sm text-muted-foreground">
               {filteredGames.length} {filteredGames.length === 1 ? 'game' : 'games'} found
             </div>
