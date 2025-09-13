@@ -1,13 +1,21 @@
 import { useState, useEffect } from 'react'
-import { supabase } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 import { Game } from '@/types/game'
+import { games as staticGames } from '@/data/games'
 
 export const useGames = () => {
-  const [games, setGames] = useState<Game[]>([])
-  const [loading, setLoading] = useState(true)
+  const [games, setGames] = useState<Game[]>(staticGames)
+  const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const fetchGames = async () => {
+    // If Supabase is not configured, use static games
+    if (!isSupabaseConfigured() || !supabase) {
+      setGames(staticGames)
+      setLoading(false)
+      return
+    }
+
     try {
       setLoading(true)
       setError(null)
@@ -23,6 +31,8 @@ export const useGames = () => {
     } catch (err: any) {
       setError(err.message)
       console.error('Error fetching games:', err)
+      // Fallback to static games on error
+      setGames(staticGames)
     } finally {
       setLoading(false)
     }
@@ -36,6 +46,7 @@ export const useGames = () => {
     games,
     loading,
     error,
-    refetch: fetchGames
+    refetch: fetchGames,
+    isUsingDatabase: isSupabaseConfigured()
   }
 }

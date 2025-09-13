@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Plus, Loader2 } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
+import { supabase, isSupabaseConfigured } from '@/lib/supabase'
 import { useToast } from '@/hooks/use-toast'
 
 interface GameFormData {
@@ -35,6 +35,16 @@ export const AdminGameForm = ({ onGameAdded }: { onGameAdded?: () => void }) => 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (!isSupabaseConfigured() || !supabase) {
+      toast({
+        title: "Database not configured",
+        description: "Please ensure Supabase is properly connected to add games to the database.",
+        variant: "destructive"
+      })
+      return
+    }
+
     setIsSubmitting(true)
 
     try {
@@ -79,7 +89,11 @@ export const AdminGameForm = ({ onGameAdded }: { onGameAdded?: () => void }) => 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button className="flex items-center gap-2">
+        <Button 
+          className="flex items-center gap-2" 
+          disabled={!isSupabaseConfigured()}
+          title={!isSupabaseConfigured() ? "Supabase must be configured to add games" : "Add a new game"}
+        >
           <Plus className="w-4 h-4" />
           Add Game
         </Button>

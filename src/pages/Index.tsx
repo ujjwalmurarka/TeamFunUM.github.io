@@ -7,7 +7,7 @@ import { useGameFilters } from "@/hooks/useGameFilters";
 import { Loader2 } from "lucide-react";
 
 const Index = () => {
-  const { games, loading, error, refetch } = useGames();
+  const { games, loading, error, refetch, isUsingDatabase } = useGames();
   const { filters, setFilters, filteredGames } = useGameFilters(games);
 
   if (loading) {

@@ -1,13 +1,17 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+// For Lovable's Supabase integration, these should be auto-configured
+// If they're not available, we'll provide fallback handling
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || ''
+const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY || ''
 
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Missing Supabase environment variables')
-}
+// Create a conditional export to prevent runtime errors
+export const supabase = supabaseUrl && supabaseKey 
+  ? createClient(supabaseUrl, supabaseKey)
+  : null
 
-export const supabase = createClient(supabaseUrl, supabaseKey)
+// Helper to check if Supabase is available
+export const isSupabaseConfigured = () => Boolean(supabaseUrl && supabaseKey)
 
 export type Database = {
   public: {
