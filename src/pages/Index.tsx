@@ -13,22 +13,24 @@ const Index = () => {
       <Sidebar filters={filters} onFiltersChange={setFilters} />
 
       {/* Main Content */}
-      <div className="flex-1 ml-80 p-8">
+      <div className="flex-1 ml-80 p-6 lg:p-8">
         {/* Header */}
-        <div className="mb-12">
-          <div className="flex items-start justify-between mb-6">
+        <div className="mb-8">
+          <div className="flex items-start justify-between gap-6">
             <div>
-              <h1 className="text-4xl font-bold text-foreground mb-2">Discover Games</h1>
-              <p className="text-lg text-muted-foreground">Find the perfect game for your team building session</p>
+              <h1 className="text-3xl lg:text-4xl font-bold text-foreground mb-3">Discover Games</h1>
+              <p className="text-base lg:text-lg text-muted-foreground">Find the perfect game for your team building session</p>
             </div>
-            <RandomGamePicker games={games} filteredGames={filteredGames} />
+            <div className="flex-shrink-0">
+              <RandomGamePicker games={games} filteredGames={filteredGames} />
+            </div>
           </div>
         </div>
 
         {/* All Games */}
-        <div className="mb-12">
+        <div>
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-semibold text-foreground">🎯 All Games</h2>
+            <h2 className="text-xl lg:text-2xl font-semibold text-foreground">🎯 All Games</h2>
             <div className="text-sm text-muted-foreground">
               {filteredGames.length} {filteredGames.length === 1 ? 'game' : 'games'} found
             </div>
