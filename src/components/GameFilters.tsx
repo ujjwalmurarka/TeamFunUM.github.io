@@ -51,7 +51,7 @@ export const GameFilters = ({ filters, onFiltersChange }: GameFiltersProps) => {
                 <SelectValue placeholder="All Durations" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Durations</SelectItem>
+                <SelectItem value="all">All Durations</SelectItem>
                 <SelectItem value="5 mins">5 minutes</SelectItem>
                 <SelectItem value="10 mins">10 minutes</SelectItem>
                 <SelectItem value="15 mins">15 minutes</SelectItem>
@@ -68,7 +68,7 @@ export const GameFilters = ({ filters, onFiltersChange }: GameFiltersProps) => {
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All Categories</SelectItem>
+                <SelectItem value="all">All Categories</SelectItem>
                 <SelectItem value="Collaborate">Collaborate</SelectItem>
                 <SelectItem value="Compete">Compete</SelectItem>
               </SelectContent>
