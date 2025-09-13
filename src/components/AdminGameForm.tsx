@@ -16,7 +16,7 @@ interface GameFormData {
   duration: string
   type: string
   link: string
-  upvotes: number
+  
 }
 
 export const AdminGameForm = ({ onGameAdded }: { onGameAdded?: () => void }) => {
@@ -29,8 +29,7 @@ export const AdminGameForm = ({ onGameAdded }: { onGameAdded?: () => void }) => 
     description: '',
     duration: '5 mins',
     type: 'Collaborate',
-    link: '',
-    upvotes: 0
+    link: ''
   })
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -57,8 +56,7 @@ export const AdminGameForm = ({ onGameAdded }: { onGameAdded?: () => void }) => 
         description: '',
         duration: '5 mins',
         type: 'Collaborate',
-        link: '',
-        upvotes: 0
+        link: ''
       })
 
       setIsOpen(false)
@@ -161,16 +159,6 @@ export const AdminGameForm = ({ onGameAdded }: { onGameAdded?: () => void }) => 
                 />
               </div>
 
-              <div>
-                <Label htmlFor="upvotes">Initial Upvotes</Label>
-                <Input
-                  id="upvotes"
-                  type="number"
-                  value={formData.upvotes}
-                  onChange={(e) => handleInputChange('upvotes', parseInt(e.target.value) || 0)}
-                  min="0"
-                />
-              </div>
 
               <Button type="submit" className="w-full" disabled={isSubmitting}>
                 {isSubmitting ? (

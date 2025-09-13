@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ExternalLink, ThumbsUp } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Game } from "@/types/game";
@@ -82,10 +82,6 @@ export const GameCard = ({ game }: GameCardProps) => {
             </Badge>
           </div>
           
-          <div className="flex items-center gap-1 text-muted-foreground">
-            <ThumbsUp className="w-4 h-4 text-primary" />
-            <span className="text-sm font-medium">{game.upvotes}</span>
-          </div>
         </div>
       </CardContent>
     </Card>

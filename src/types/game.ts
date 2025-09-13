@@ -4,7 +4,6 @@ export interface Game {
   description: string;
   duration: string;
   type: string;
-  upvotes: number;
   link: string;
   new?: boolean;
 }
