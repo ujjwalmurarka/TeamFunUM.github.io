@@ -1,11 +1,36 @@
 import { Sidebar } from "@/components/Sidebar";
 import { GameCard } from "@/components/GameCard";
 import { RandomGamePicker } from "@/components/RandomGamePicker";
-import { games } from "@/data/games";
+import { AdminGameForm } from "@/components/AdminGameForm";
+import { useGames } from "@/hooks/useGames";
 import { useGameFilters } from "@/hooks/useGameFilters";
+import { Loader2 } from "lucide-react";
 
 const Index = () => {
+  const { games, loading, error, refetch } = useGames();
   const { filters, setFilters, filteredGames } = useGameFilters(games);
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen bg-background items-center justify-center">
+        <div className="flex items-center gap-2">
+          <Loader2 className="w-6 h-6 animate-spin" />
+          <span>Loading games...</span>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="flex min-h-screen bg-background items-center justify-center">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold mb-2">Error loading games</h2>
+          <p className="text-muted-foreground">{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -23,7 +48,8 @@ const Index = () => {
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2 lg:mb-3">Discover Games</h1>
               <p className="text-sm sm:text-base lg:text-lg text-muted-foreground">Find the perfect game for your team building session</p>
             </div>
-            <div className="flex-shrink-0 self-start">
+            <div className="flex items-center gap-3 flex-shrink-0 self-start">
+              <AdminGameForm onGameAdded={refetch} />
               <RandomGamePicker games={games} filteredGames={filteredGames} />
             </div>
           </div>
