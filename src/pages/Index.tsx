@@ -1,10 +1,12 @@
 import { useState } from "react";
 
 import { GameCard } from "@/components/GameCard";
+import { GameCardList } from "@/components/GameCardList";
 import { RandomGamePicker } from "@/components/RandomGamePicker";
 import { AdminGameForm } from "@/components/AdminGameForm";
 import { GameFilters } from "@/components/GameFilters";
 import { AuthForm } from "@/components/AuthForm";
+import { ViewToggle } from "@/components/ViewToggle";
 import { useGames } from "@/hooks/useGames";
 import { useGameFilters } from "@/hooks/useGameFilters";
 import { useAuth } from "@/hooks/useAuth";
@@ -18,6 +20,7 @@ const Index = () => {
   const { filters, setFilters, filteredGames } = useGameFilters(games);
   const { user, loading: authLoading, signOut, isAuthenticated } = useAuth();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   if (loading) {
     return (
@@ -126,10 +129,13 @@ const Index = () => {
 
             {/* All Games */}
             <div>
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-0 mb-4 lg:mb-6">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 mb-4 lg:mb-6">
                 <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-foreground">🎯 Games</h2>
-                <div className="text-xs sm:text-sm text-muted-foreground">
-                  {filteredGames.length} {filteredGames.length === 1 ? 'game' : 'games'} found
+                <div className="flex items-center justify-between gap-4">
+                  <div className="text-xs sm:text-sm text-muted-foreground">
+                    {filteredGames.length} {filteredGames.length === 1 ? 'game' : 'games'} found
+                  </div>
+                  <ViewToggle view={viewMode} onViewChange={setViewMode} />
                 </div>
               </div>
               
@@ -140,10 +146,16 @@ const Index = () => {
                     <p className="text-sm lg:text-base text-muted-foreground">Try adjusting your search terms or filters to find what you're looking for.</p>
                   </div>
                 </div>
-              ) : (
+              ) : viewMode === 'grid' ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 lg:gap-6">
                   {filteredGames.map(game => (
                     <GameCard key={game.id} game={game} />
+                  ))}
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {filteredGames.map(game => (
+                    <GameCardList key={game.id} game={game} />
                   ))}
                 </div>
               )}
