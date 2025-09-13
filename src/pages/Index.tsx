@@ -1,5 +1,6 @@
 import { Sidebar } from "@/components/Sidebar";
 import { GameCard } from "@/components/GameCard";
+import { RandomGamePicker } from "@/components/RandomGamePicker";
 import { games } from "@/data/games";
 import { useGameFilters } from "@/hooks/useGameFilters";
 
@@ -15,8 +16,13 @@ const Index = () => {
       <div className="flex-1 ml-80 p-8">
         {/* Header */}
         <div className="mb-12">
-          <h1 className="text-4xl font-bold text-foreground mb-2">Discover Games</h1>
-          <p className="text-lg text-muted-foreground">Find the perfect game for your team building session</p>
+          <div className="flex items-start justify-between mb-6">
+            <div>
+              <h1 className="text-4xl font-bold text-foreground mb-2">Discover Games</h1>
+              <p className="text-lg text-muted-foreground">Find the perfect game for your team building session</p>
+            </div>
+            <RandomGamePicker games={games} filteredGames={filteredGames} />
+          </div>
         </div>
 
         {/* All Games */}
