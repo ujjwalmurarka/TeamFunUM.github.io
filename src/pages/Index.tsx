@@ -42,12 +42,12 @@ const Index = () => {
     <SidebarProvider>
       <div className="flex min-h-screen w-full bg-background">
         {/* Desktop Sidebar */}
-        <div className="hidden lg:block">
+        <div className="hidden lg:block flex-shrink-0">
           <Sidebar filters={filters} onFiltersChange={setFilters} />
         </div>
 
         {/* Main Content */}
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col min-w-0">
           {/* Mobile Header with Filters Toggle */}
           <div className="lg:hidden bg-background border-b p-4">
             <div className="flex items-center justify-between mb-4">
