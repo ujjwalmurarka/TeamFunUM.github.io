@@ -5,7 +5,6 @@ import { useGameFilters } from "@/hooks/useGameFilters";
 
 const Index = () => {
   const { filters, setFilters, filteredGames } = useGameFilters(games);
-  const newGames = games.filter(game => game.new);
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -19,20 +18,6 @@ const Index = () => {
           <h1 className="text-4xl font-bold text-foreground mb-2">Discover Games</h1>
           <p className="text-lg text-muted-foreground">Find the perfect game for your team building session</p>
         </div>
-
-        {/* Newly Added Games */}
-        {newGames.length > 0 && (
-          <div className="mb-12">
-            <div className="flex items-center justify-between mb-6">
-              <h2 className="text-2xl font-semibold text-foreground">✨ Newly Added</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {newGames.map(game => (
-                <GameCard key={game.id} game={game} />
-              ))}
-            </div>
-          </div>
-        )}
 
         {/* All Games */}
         <div className="mb-12">
