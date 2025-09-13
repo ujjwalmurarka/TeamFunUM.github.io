@@ -3,7 +3,7 @@ import { useState } from "react";
 import { GameCard } from "@/components/GameCard";
 import { GameCardList } from "@/components/GameCardList";
 import { RandomGamePicker } from "@/components/RandomGamePicker";
-import { AdminGameForm } from "@/components/AdminGameForm";
+
 import { GameFilters } from "@/components/GameFilters";
 import { AuthForm } from "@/components/AuthForm";
 import { ViewToggle } from "@/components/ViewToggle";
@@ -83,7 +83,7 @@ const Index = () => {
                       </Button>
                     </>
                   )}
-                  <AdminGameForm onGameAdded={refetch} />
+                  
                   <RandomGamePicker games={games} filteredGames={filteredGames} />
                 </div>
               </div>
@@ -131,6 +131,13 @@ const Index = () => {
                   ))}
                 </div>
               )}
+            </div>
+            
+            {/* Admin Contact Section */}
+            <div className="mt-12 pt-8 border-t border-border text-center">
+              <p className="text-sm text-muted-foreground">
+                Want to add a new game? Contact the admin team for submissions.
+              </p>
             </div>
           </div>
         </div>
