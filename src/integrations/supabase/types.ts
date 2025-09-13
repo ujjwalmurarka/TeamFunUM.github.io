@@ -24,7 +24,6 @@ export type Database = {
           new: boolean | null
           title: string
           type: string
-          upvotes: number | null
         }
         Insert: {
           created_at?: string | null
@@ -35,7 +34,6 @@ export type Database = {
           new?: boolean | null
           title: string
           type: string
-          upvotes?: number | null
         }
         Update: {
           created_at?: string | null
@@ -46,7 +44,6 @@ export type Database = {
           new?: boolean | null
           title?: string
           type?: string
-          upvotes?: number | null
         }
         Relationships: []
       }
