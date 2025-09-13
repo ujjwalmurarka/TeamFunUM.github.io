@@ -15,7 +15,7 @@ export const Sidebar = ({ filters, onFiltersChange }: SidebarProps) => {
         <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 rounded-xl flex items-center justify-center">
           <Gamepad2 className="w-6 h-6 text-primary-foreground" />
         </div>
-        <h1 className="text-xl font-bold text-sidebar-foreground">TeamPlay</h1>
+        <h1 className="text-xl font-bold text-sidebar-foreground">Funtime</h1>
       </div>
 
       {/* Filters */}
