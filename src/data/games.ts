@@ -55,5 +55,13 @@ export const games: Game[] = [
     duration: "10 mins",
     type: "Compete",
     link: "https://really.boring.website/lobby"
+  },
+  {
+    id: 8,
+    title: "Wordle",
+    description: "Get 6 chances to guess a 5-letter word",
+    duration: "5 mins",
+    type: "Collaborate",
+    link: "https://www.nytimes.com/games/wordle/index.html"
   }
 ];
