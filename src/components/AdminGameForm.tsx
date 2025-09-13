@@ -9,6 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Plus, Loader2 } from 'lucide-react'
 import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
+import { useAuth } from '@/hooks/useAuth'
+import { AuthForm } from './AuthForm'
 
 interface GameFormData {
   title: string
@@ -23,6 +25,7 @@ export const AdminGameForm = ({ onGameAdded }: { onGameAdded?: () => void }) => 
   const [isOpen, setIsOpen] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const { toast } = useToast()
+  const { isAuthenticated } = useAuth()
   
   const [formData, setFormData] = useState<GameFormData>({
     title: '',
@@ -87,10 +90,18 @@ export const AdminGameForm = ({ onGameAdded }: { onGameAdded?: () => void }) => 
       
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle>Add New Game</DialogTitle>
+          <DialogTitle>{isAuthenticated ? 'Add New Game' : 'Sign In Required'}</DialogTitle>
         </DialogHeader>
         
-        <Card>
+        {!isAuthenticated ? (
+          <div className="space-y-4">
+            <p className="text-muted-foreground text-sm">
+              Please sign in to add new games to the collection.
+            </p>
+            <AuthForm />
+          </div>
+        ) : (
+          <Card>
           <CardContent className="pt-6">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
@@ -173,6 +184,7 @@ export const AdminGameForm = ({ onGameAdded }: { onGameAdded?: () => void }) => 
             </form>
           </CardContent>
         </Card>
+        )}
       </DialogContent>
     </Dialog>
   )

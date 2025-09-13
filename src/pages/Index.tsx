@@ -19,39 +19,15 @@ const Index = () => {
   const { user, loading: authLoading, signOut, isAuthenticated } = useAuth();
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
-  const handleSignOut = async () => {
-    try {
-      await signOut()
-    } catch (error) {
-      console.error('Error signing out:', error)
-    }
-  }
-
-  if (authLoading || loading) {
+  if (loading) {
     return (
       <div className="flex min-h-screen bg-background items-center justify-center">
         <div className="flex items-center gap-2">
           <Loader2 className="w-6 h-6 animate-spin" />
-          <span>Loading...</span>
+          <span>Loading games...</span>
         </div>
       </div>
     );
-  }
-
-  if (!isAuthenticated) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-background to-secondary/20">
-        <div className="container mx-auto px-4 py-16">
-          <div className="text-center mb-8">
-            <h1 className="text-4xl font-bold text-primary mb-4">Game Hub</h1>
-            <p className="text-muted-foreground mb-8">
-              Sign in to access and manage your game collection
-            </p>
-          </div>
-          <AuthForm />
-        </div>
-      </div>
-    )
   }
 
   if (error) {
@@ -114,19 +90,29 @@ const Index = () => {
                   <p className="text-sm sm:text-base lg:text-lg text-muted-foreground">Find the perfect game for your team building session</p>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0 self-start">
-                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                    <User className="w-4 h-4" />
-                    {user?.email}
-                  </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={handleSignOut}
-                    className="flex items-center gap-2"
-                  >
-                    <LogOut className="w-4 h-4" />
-                    Sign Out
-                  </Button>
+                  {isAuthenticated && (
+                    <>
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <User className="w-4 h-4" />
+                        {user?.email}
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={async () => {
+                          try {
+                            await signOut()
+                          } catch (error) {
+                            console.error('Error signing out:', error)
+                          }
+                        }}
+                        className="flex items-center gap-2"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Sign Out
+                      </Button>
+                    </>
+                  )}
                   <AdminGameForm onGameAdded={refetch} />
                   <RandomGamePicker games={games} filteredGames={filteredGames} />
                 </div>
