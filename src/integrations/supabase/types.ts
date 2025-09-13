@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      game_analytics: {
+        Row: {
+          created_at: string
+          event_type: string
+          game_id: number
+          id: string
+          ip_address: unknown | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type?: string
+          game_id: number
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          game_id?: number
+          id?: string
+          ip_address?: unknown | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "game_analytics_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "games"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "game_analytics_game_id_fkey"
+            columns: ["game_id"]
+            isOneToOne: false
+            referencedRelation: "popular_games"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       games: {
         Row: {
           created_at: string | null
@@ -49,7 +94,21 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      popular_games: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          duration: string | null
+          id: number | null
+          link: string | null
+          new: boolean | null
+          recent_views: number | null
+          title: string | null
+          type: string | null
+          view_count: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
