@@ -12,14 +12,12 @@ import { useGameFilters } from "@/hooks/useGameFilters";
 import { useAuth } from "@/hooks/useAuth";
 
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
-import { Loader2, Filter, LogOut, User } from "lucide-react";
+import { Loader2, LogOut, User } from "lucide-react";
 
 const Index = () => {
   const { games, loading, error, refetch, isUsingDatabase } = useGames();
   const { filters, setFilters, filteredGames } = useGameFilters(games);
   const { user, loading: authLoading, signOut, isAuthenticated } = useAuth();
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
 
   if (loading) {
@@ -50,37 +48,6 @@ const Index = () => {
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col min-w-0">
-          {/* Mobile Header with Filters Toggle */}
-          <div className="lg:hidden bg-background border-b p-4">
-            <div className="flex items-center justify-between mb-4">
-              <h1 className="text-xl font-bold">Funtime</h1>
-              <Sheet open={mobileFiltersOpen} onOpenChange={setMobileFiltersOpen}>
-                <SheetTrigger asChild>
-                  <Button variant="outline" size="sm">
-                    <Filter className="w-4 h-4 mr-2" />
-                    Filters
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="left" className="w-80">
-                  <SheetHeader>
-                    <SheetTitle>Filters</SheetTitle>
-                  </SheetHeader>
-                  <div className="mt-6">
-                    <GameFilters filters={filters} onFiltersChange={setFilters} />
-                  </div>
-                </SheetContent>
-              </Sheet>
-            </div>
-            
-            {/* Quick filters for mobile */}
-            <div className="space-y-3">
-              <GameFilters 
-                filters={filters} 
-                onFiltersChange={setFilters} 
-                compact={true}
-              />
-            </div>
-          </div>
 
 
           {/* Main Content Area */}
@@ -120,6 +87,11 @@ const Index = () => {
                   <RandomGamePicker games={games} filteredGames={filteredGames} />
                 </div>
               </div>
+            </div>
+
+            {/* Mobile/Tablet Filters */}
+            <div className="block lg:hidden mb-6">
+              <GameFilters filters={filters} onFiltersChange={setFilters} />
             </div>
 
             {/* Desktop Filters Top Bar - Sticky */}
