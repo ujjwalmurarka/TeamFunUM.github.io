@@ -93,8 +93,8 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Desktop Filters Top Bar */}
-            <div className="hidden lg:block mb-6">
+            {/* Desktop Filters Top Bar - Sticky */}
+            <div className="hidden lg:block sticky top-0 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border p-4 mb-6">
               <GameFilters filters={filters} onFiltersChange={setFilters} />
             </div>
 
