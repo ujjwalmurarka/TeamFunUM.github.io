@@ -57,6 +57,13 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        game: {
+          primary: "hsl(var(--game-primary))",
+          accent: "hsl(var(--game-accent))",
+          success: "hsl(var(--game-success))",
+          warning: "hsl(var(--game-warning))",
+          info: "hsl(var(--game-info))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -84,6 +91,16 @@ export default {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.5s ease-out",
+        "slide-up": "slide-up 0.3s ease-out",
+        "bounce-in": "bounce-in 0.6s ease-out",
+      },
+      backdropBlur: {
+        xs: "2px",
+      },
+      boxShadow: {
+        "game": "0 8px 32px hsl(var(--primary) / 0.2)",
+        "game-hover": "0 12px 40px hsl(var(--primary) / 0.3)",
       },
     },
   },

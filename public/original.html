@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TeamPlay - Game Catalogue</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0a0e27;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #0f1419;
+            padding: 2rem 1.5rem;
+            border-right: 1px solid #1a1f35;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 3rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, #00d4ff, #0066ff);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .filter-section {
+            margin-bottom: 2.5rem;
+        }
+
+        .filter-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #8892b0;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+        }
+
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .filter-label {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: #ccd6f6;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            background: #1a1f35;
+            border: 1px solid #233554;
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #ccd6f6;
+            font-size: 0.95rem;
+            transition: all 0.2s ease;
+        }
+
+        select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+        }
+
+        select option {
+            background: #1a1f35;
+            color: #ccd6f6;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #8892b0;
+            font-size: 16px;
+        }
+
+        input[type="text"] {
+            padding-left: 48px;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: #1a1f35;
+            border-radius: 8px;
+            padding: 4px;
+            gap: 4px;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            padding: 10px;
+            background: transparent;
+            border: none;
+            border-radius: 6px;
+            color: #8892b0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-btn.active {
+            background: #00d4ff;
+            color: #0a0e27;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 280px;
+            padding: 2rem 2rem 2rem 2rem;
+        }
+
+        .header {
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: #ffffff;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: #8892b0;
+            font-weight: 400;
+        }
+
+        .content-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .view-all {
+            color: #00d4ff;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: opacity 0.2s ease;
+        }
+
+        .view-all:hover {
+            opacity: 0.8;
+        }
+
+        /* Cards View */
+        .games-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .game-card {
+            background: #1a1f35;
+            border: 1px solid #233554;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .game-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            border-color: #00d4ff;
+        }
+
+        .game-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .game-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.3s ease;
+        }
+
+        .game-thumbnail:hover {
+            transform: scale(1.05);
+        }
+
+        .game-icon {
+            font-size: 3rem;
+            opacity: 0.9;
+        }
+
+        .thumbnail-fallback {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            color: white;
+            font-size: 3rem;
+        }
+
+        .thumbnail-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+            background: #0f1419;
+            color: #8892b0;
+            font-size: 0.9rem;
+        }
+
+        .game-info {
+            padding: 1.5rem;
+        }
+
+        .game-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .game-description {
+            font-size: 0.9rem;
+            color: #8892b0;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .game-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .game-tags {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: #00d4ff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .upvotes {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #8892b0;
+            font-size: 0.9rem;
+        }
+
+        .upvote-icon {
+            color: #00d4ff;
+        }
+
+        /* List View */
+        .games-list {
+            background: #1a1f35;
+            border: 1px solid #233554;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .list-header {
+            background: #0f1419;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #233554;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #8892b0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .game-row {
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid rgba(35, 53, 84, 0.5);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 1rem;
+            align-items: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .game-row:hover {
+            background: rgba(0, 212, 255, 0.05);
+        }
+
+        .game-row:last-child {
+            border-bottom: none;
+        }
+
+        .row-title {
+            font-weight: 600;
+            color: #ffffff;
+            font-size: 1rem;
+        }
+
+        .row-description {
+            color: #8892b0;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        .row-meta {
+            color: #8892b0;
+            font-size: 0.9rem;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #8892b0;
+            background: #1a1f35;
+            border: 1px solid #233554;
+            border-radius: 12px;
+        }
+
+        .no-results h3 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+        }
+
+        .trending-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .new-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: linear-gradient(45deg, #00d4ff, #0066ff);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 240px;
+            }
+            
+            .main-content {
+                margin-left: 240px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 1rem;
+            }
+            
+            .games-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .list-header,
+            .game-row {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f1419;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #233554;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2d4a6b;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">🎮</div>
+                <div class="logo-text">TeamPlay</div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title">Search</div>
+                <div class="filter-group">
+                    <div class="search-container">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="search" placeholder="Search games...">
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title">Filters</div>
+                
+                <div class="filter-group">
+                    <label class="filter-label" for="duration-filter">Duration</label>
+                    <select id="duration-filter">
+                        <option value="">All Durations</option>
+                        <option value="5 mins">5 minutes</option>
+                        <option value="10 mins">10 minutes</option>
+                        <option value="15 mins">15 minutes</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label class="filter-label" for="type-filter">Category</label>
+                    <select id="type-filter">
+                        <option value="">All Categories</option>
+                        <option value="Collaborate">Collaborate</option>
+                        <option value="Compete">Compete</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <div class="filter-title">View</div>
+                <div class="view-toggle">
+                    <button class="toggle-btn active" id="card-view">Cards</button>
+                    <button class="toggle-btn" id="list-view">List</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1 class="page-title">Discover Games</h1>
+                <p class="page-subtitle">Find the perfect game for your team building session</p>
+            </div>
+
+            <!-- Trending Games -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">🔥 Trending Now</h2>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                <div id="trending-games" class="games-row">
+                    <!-- Trending games will be populated here -->
+                </div>
+            </div>
+
+            <!-- Newly Added Games -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">✨ Newly Added</h2>
+                    <a href="#" class="view-all">View All</a>
+                </div>
+                <div id="new-games" class="games-row">
+                    <!-- New games will be populated here -->
+                </div>
+            </div>
+
+            <!-- All Games -->
+            <div class="content-section">
+                <div class="section-header">
+                    <h2 class="section-title">🎯 All Games</h2>
+                </div>
+                
+                <div id="games-grid" class="games-row">
+                    <!-- All games will be populated here -->
+                </div>
+                
+                <div id="games-list" class="games-list hidden">
+                    <div class="list-header">
+                        <div>Game</div>
+                        <div>Duration</div>
+                        <div>Category</div>
+                        <div>Popularity</div>
+                    </div>
+                    <div id="list-content">
+                        <!-- List items will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <div id="no-results" class="no-results hidden">
+                <h3>No games found</h3>
+                <p>Try adjusting your search terms or filters to find what you're looking for.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const games = [
+            {
+                id: 1,
+                title: "Connections",
+                description: "Find groups of four items that share something in common. A fun daily puzzle game from The New York Times.",
+                duration: "5 mins",
+                type: "Collaborate",
+                upvotes: 312,
+                icon: "🧩",
+                trending: true,
+                new: false,
+                link: "https://www.nytimes.com/games/connections"
+            },
+            {
+                id: 2,
+                title: "Mini Crossword",
+                description: "A bite-sized crossword puzzle that can be solved quickly. Perfect for team collaboration.",
+                duration: "5 mins",
+                type: "Collaborate",
+                upvotes: 289,
+                icon: "📝",
+                trending: true,
+                new: false,
+                link: "https://www.nytimes.com/crosswords/game/mini"
+            },
+            {
+                id: 3,
+                title: "Guess my word",
+                description: "A word guessing game where you try to figure out the secret word through strategic guessing.",
+                duration: "10 mins",
+                type: "Collaborate",
+                upvotes: 234,
+                icon: "💭",
+                trending: false,
+                new: true,
+                link: "https://hryanjones.com/guess-my-word/"
+            },
+            {
+                id: 4,
+                title: "TimeGuessr",
+                description: "Look at historical photos and guess what year they were taken. Test your historical knowledge!",
+                duration: "15 mins",
+                type: "Collaborate",
+                upvotes: 198,
+                icon: "📷",
+                trending: true,
+                new: false,
+                link: "https://timeguessr.com"
+            },
+            {
+                id: 5,
+                title: "Drawbattle",
+                description: "Real-time drawing battle where teams compete to create the best artwork based on prompts.",
+                duration: "15 mins",
+                type: "Compete",
+                upvotes: 267,
+                icon: "🎨",
+                trending: false,
+                new: true,
+                link: "https://drawbattle.io"
+            },
+            {
+                id: 6,
+                title: "Drawsaurus",
+                description: "Online drawing and guessing game similar to Pictionary. One player draws while others guess.",
+                duration: "10 mins",
+                type: "Collaborate",
+                upvotes: 225,
+                icon: "🦕",
+                trending: true,
+                new: false,
+                link: "https://www.drawasaurus.org"
+            },
+            {
+                id: 7,
+                title: "Scattegories",
+                description: "Come up with words that fit specific categories and start with a given letter. Race against time!",
+                duration: "10 mins",
+                type: "Compete",
+                upvotes: 201,
+                icon: "📋",
+                trending: false,
+                new: true,
+                link: "https://really.boring.website/lobby"
+            }
+        ];
+
+        let currentView = 'cards';
+        let filteredGames = [...games];
+
+        const durationFilter = document.getElementById('duration-filter');
+        const typeFilter = document.getElementById('type-filter');
+        const searchInput = document.getElementById('search');
+        const cardViewBtn = document.getElementById('card-view');
+        const listViewBtn = document.getElementById('list-view');
+        const gamesGrid = document.getElementById('games-grid');
+        const gamesList = document.getElementById('games-list');
+        const listContent = document.getElementById('list-content');
+        const noResults = document.getElementById('no-results');
+        const trendingGames = document.getElementById('trending-games');
+        const newGames = document.getElementById('new-games');
+
+        // Game link functionality
+        function openGameLink(link, title) {
+            if (link && link.trim() !== '') {
+                window.open(link, '_blank', 'noopener,noreferrer');
+            }
+        }
+
+        function filterGames() {
+            const durationValue = durationFilter.value;
+            const typeValue = typeFilter.value;
+            const searchValue = searchInput.value.toLowerCase();
+
+            filteredGames = games.filter(game => {
+                const matchesDuration = !durationValue || game.duration === durationValue;
+                const matchesType = !typeValue || game.type === typeValue;
+                const matchesSearch = !searchValue || 
+                    game.title.toLowerCase().includes(searchValue) ||
+                    game.description.toLowerCase().includes(searchValue);
+
+                return matchesDuration && matchesType && matchesSearch;
+            });
+
+            renderGames();
+        }
+
+        function renderGames() {
+            renderTrendingGames();
+            renderNewGames();
+            
+            if (filteredGames.length === 0) {
+                gamesGrid.style.display = 'none';
+                gamesList.style.display = 'none';
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+
+            if (currentView === 'cards') {
+                gamesGrid.style.display = 'grid';
+                gamesList.style.display = 'none';
+                renderCardView();
+            } else {
+                gamesGrid.style.display = 'none';
+                gamesList.style.display = 'block';
+                renderListView();
+            }
+        }
+
+        function createGameCard(game, showBadge = false) {
+            const thumbnailHtml = game.link ? 
+                `<img class="game-thumbnail" 
+                     src="https://api.urlbox.io/v1/ca482d7e-9417-4569-90fe-80f7c5e1c781/png?url=${encodeURIComponent(game.link)}&width=400&height=300&wait_for=network_idle" 
+                     alt="${game.title} thumbnail"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+                     onload="this.nextElementSibling.style.display='none';">
+                 <div class="thumbnail-fallback" style="display: none;">
+                     <span class="game-icon">${game.icon}</span>
+                 </div>` :
+                `<div class="thumbnail-fallback">
+                     <span class="game-icon">${game.icon}</span>
+                 </div>`;
+
+            return `
+                <div class="game-card" onclick="openGameLink('${game.link}', '${game.title}')">
+                    ${showBadge && game.trending ? '<div class="trending-badge">Trending</div>' : ''}
+                    ${showBadge && game.new ? '<div class="new-badge">New</div>' : ''}
+                    <div class="game-image">
+                        ${thumbnailHtml}
+                    </div>
+                    <div class="game-info">
+                        <h3 class="game-title">${game.title}</h3>
+                        <p class="game-description">${game.description}</p>
+                        <div class="game-meta">
+                            <div class="game-tags">
+                                <span class="tag">${game.duration}</span>
+                                <span class="tag">${game.type}</span>
+                            </div>
+                            <div class="upvotes">
+                                <span class="upvote-icon">👍</span>
+                                <span>${game.upvotes}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderTrendingGames() {
+            const trending = games.filter(game => game.trending).slice(0, 4);
+            trendingGames.innerHTML = trending.map(game => createGameCard(game, true)).join('');
+        }
+
+        function renderNewGames() {
+            const newGamesList = games.filter(game => game.new).slice(0, 4);
+            newGames.innerHTML = newGamesList.map(game => createGameCard(game, true)).join('');
+        }
+
+        function renderCardView() {
+            gamesGrid.innerHTML = filteredGames.map(game => createGameCard(game)).join('');
+        }
+
+        function renderListView() {
+            listContent.innerHTML = filteredGames.map(game => `
+                <div class="game-row" onclick="openGameLink('${game.link}', '${game.title}')">
+                    <div>
+                        <div class="row-title">${game.title}</div>
+                        <div class="row-description">${game.description}</div>
+                    </div>
+                    <div class="row-meta">${game.duration}</div>
+                    <div class="row-meta">${game.type}</div>
+                    <div class="upvotes">
+                        <span class="upvote-icon">👍</span>
+                        <span>${game.upvotes}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function switchView(view) {
+            currentView = view;
+            
+            if (view === 'cards') {
+                cardViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
+            } else {
+                listViewBtn.classList.add('active');
+                cardViewBtn.classList.remove('active');
+            }
+            
+            renderGames();
+        }
+
+        // Event listeners
+        durationFilter.addEventListener('change', filterGames);
+        typeFilter.addEventListener('change', filterGames);
+        searchInput.addEventListener('input', filterGames);
+        cardViewBtn.addEventListener('click', () => switchView('cards'));
+        listViewBtn.addEventListener('click', () => switchView('list'));
+
+        // Initial render
+        renderGames();
+    </script>
+</body>
+</html>
