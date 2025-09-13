@@ -10,12 +10,12 @@ const Index = () => {
   return (
     <div className="flex min-h-screen bg-background">
       {/* Sidebar - Hidden on mobile */}
-      <div className="hidden lg:block">
+      <div className="hidden lg:block fixed left-0 top-0 z-10">
         <Sidebar filters={filters} onFiltersChange={setFilters} />
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 lg:ml-80 p-4 sm:p-6 lg:p-8">
+      <div className="flex-1 lg:ml-80 lg:pl-6 p-4 sm:p-6 lg:py-8">
         {/* Header */}
         <div className="mb-6 lg:mb-8">
           <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
