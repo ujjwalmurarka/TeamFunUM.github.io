@@ -3,6 +3,7 @@ import { ExternalLink } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Game } from "@/types/game";
+import { useGameAnalytics } from "@/hooks/useGameAnalytics";
 
 interface GameCardProps {
   game: Game;
@@ -11,9 +12,11 @@ interface GameCardProps {
 export const GameCard = ({ game }: GameCardProps) => {
   const [imageError, setImageError] = useState(false);
   const [imageLoading, setImageLoading] = useState(true);
+  const { trackGameClick } = useGameAnalytics();
 
-  const handleGameClick = () => {
+  const handleGameClick = async () => {
     if (game.link) {
+      await trackGameClick(game.id);
       window.open(game.link, '_blank', 'noopener,noreferrer');
     }
   };

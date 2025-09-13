@@ -6,6 +6,8 @@ import { RandomGamePicker } from "@/components/RandomGamePicker";
 
 import { GameFilters } from "@/components/GameFilters";
 import { AuthForm } from "@/components/AuthForm";
+import { PopularGamesSection } from "@/components/PopularGamesSection";
+import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
 import { ViewToggle } from "@/components/ViewToggle";
 import { useGames } from "@/hooks/useGames";
 import { useGameFilters } from "@/hooks/useGameFilters";
@@ -98,6 +100,12 @@ const Index = () => {
             <div className="hidden lg:block sticky top-0 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border p-4 mb-6">
               <GameFilters filters={filters} onFiltersChange={setFilters} />
             </div>
+
+            {/* Popular Games Section */}
+            <PopularGamesSection />
+
+            {/* Analytics Dashboard for authenticated users */}
+            <AnalyticsDashboard />
 
             {/* All Games */}
             <div>

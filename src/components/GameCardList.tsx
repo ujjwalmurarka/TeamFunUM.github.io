@@ -2,12 +2,18 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ExternalLink, Clock, Users } from 'lucide-react'
 import { Game } from '@/types/game'
+import { useGameAnalytics } from '@/hooks/useGameAnalytics'
 
 interface GameCardListProps {
   game: Game
 }
 
 export const GameCardList = ({ game }: GameCardListProps) => {
+  const { trackGameClick } = useGameAnalytics();
+
+  const handleGameClick = async () => {
+    await trackGameClick(game.id);
+  };
   return (
     <div className="flex items-center p-4 border rounded-lg bg-card hover:bg-accent/50 transition-colors">
       <div className="flex-1 min-w-0">
@@ -45,6 +51,7 @@ export const GameCardList = ({ game }: GameCardListProps) => {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1"
+                onClick={handleGameClick}
               >
                 <ExternalLink className="w-3 h-3" />
                 <span className="hidden sm:inline">Play</span>
