@@ -1,12 +1,12 @@
 import { useState } from "react";
-import { Sidebar } from "@/components/Sidebar";
+
 import { GameCard } from "@/components/GameCard";
 import { RandomGamePicker } from "@/components/RandomGamePicker";
 import { AdminGameForm } from "@/components/AdminGameForm";
 import { GameFilters } from "@/components/GameFilters";
 import { useGames } from "@/hooks/useGames";
 import { useGameFilters } from "@/hooks/useGameFilters";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { Loader2, Filter } from "lucide-react";
@@ -39,12 +39,8 @@ const Index = () => {
   }
 
   return (
-    <SidebarProvider>
+    
       <div className="flex min-h-screen w-full bg-background">
-        {/* Desktop Sidebar */}
-        <div className="hidden lg:block flex-shrink-0">
-          <Sidebar filters={filters} onFiltersChange={setFilters} />
-        </div>
 
         {/* Main Content */}
         <div className="flex-1 flex flex-col min-w-0">
@@ -80,10 +76,6 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Desktop Sidebar Trigger */}
-          <div className="hidden lg:block fixed top-4 left-4 z-50">
-            <SidebarTrigger />
-          </div>
 
           {/* Main Content Area */}
           <div className="flex-1 p-4 sm:p-6 lg:p-8">
@@ -99,6 +91,11 @@ const Index = () => {
                   <RandomGamePicker games={games} filteredGames={filteredGames} />
                 </div>
               </div>
+            </div>
+
+            {/* Desktop Filters Top Bar */}
+            <div className="hidden lg:block mb-6">
+              <GameFilters filters={filters} onFiltersChange={setFilters} />
             </div>
 
             {/* All Games */}
@@ -128,7 +125,7 @@ const Index = () => {
           </div>
         </div>
       </div>
-    </SidebarProvider>
+    
   );
 };
 
