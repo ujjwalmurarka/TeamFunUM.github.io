@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { supabase, isSupabaseConfigured } from '@/lib/supabase'
+import { supabase } from '@/integrations/supabase/client'
 import { Game } from '@/types/game'
 import { games as staticGames } from '@/data/games'
 
@@ -9,12 +9,6 @@ export const useGames = () => {
   const [error, setError] = useState<string | null>(null)
 
   const fetchGames = async () => {
-    // If Supabase is not configured, use static games
-    if (!isSupabaseConfigured() || !supabase) {
-      setGames(staticGames)
-      setLoading(false)
-      return
-    }
 
     try {
       setLoading(true)
@@ -47,6 +41,6 @@ export const useGames = () => {
     loading,
     error,
     refetch: fetchGames,
-    isUsingDatabase: isSupabaseConfigured()
+    isUsingDatabase: true
   }
 }
