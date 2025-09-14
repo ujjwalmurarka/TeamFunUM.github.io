@@ -108,21 +108,21 @@ const Index = () => {
                     Perfect for office teams
                   </div>
 
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 lg:mb-8 text-foreground leading-tight animate-fade-in" style={{ animationDelay: '0.2s' }}>
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 lg:mb-8 text-foreground leading-tight animate-fade-in animate-delay-200">
                     {getTimeBasedGreeting()}
-                    <span className="inline-block animate-bounce ml-2" style={{ animationDelay: '2s' }}>👋</span>
+                    <span className="inline-block animate-bounce animate-delay-2000 ml-2">👋</span>
                   </h1>
                   
-                  <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-muted-foreground font-light mb-3 sm:mb-4 lg:mb-6 px-2 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+                  <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-muted-foreground font-light mb-3 sm:mb-4 lg:mb-6 px-2 animate-fade-in animate-delay-400">
                     {getTimeBasedTagline()}
                   </p>
                   
-                  <p className="text-base sm:text-lg md:text-xl text-muted-foreground/80 mb-8 sm:mb-12 lg:mb-16 px-4 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.6s' }}>
+                  <p className="text-base sm:text-lg md:text-xl text-muted-foreground/80 mb-8 sm:mb-12 lg:mb-16 px-4 max-w-2xl mx-auto animate-fade-in animate-delay-600">
                     Skip the "what should we play?" debate • Perfect for 2-15 minute breaks
                   </p>
                   
                   {/* Feature highlights */}
-                  <div className="flex flex-wrap justify-center gap-4 mb-8 sm:mb-12 lg:mb-16 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+                  <div className="flex flex-wrap justify-center gap-4 mb-8 sm:mb-12 lg:mb-16 animate-fade-in animate-delay-800">
                     <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-2 hover:scale-105 transition-transform">
                       <Clock className="w-4 h-4 text-primary" />
                       <span className="text-sm text-foreground">2-15 min games</span>
@@ -138,17 +138,17 @@ const Index = () => {
                   </div>
                   
                   {/* I'm Feeling Lucky CTA */}
-                  <div className="mb-8 sm:mb-12 lg:mb-16 animate-fade-in" style={{ animationDelay: '1s' }}>
+                  <div className="mb-8 sm:mb-12 lg:mb-16 animate-fade-in animate-delay-1000">
                     <RandomGamePicker games={games} filteredGames={filteredGames} />
                   </div>
 
                   {/* Search and Filters */}
-                  <div className="max-w-2xl mx-auto px-2 animate-fade-in" style={{ animationDelay: '1.2s' }}>
+                  <div className="max-w-2xl mx-auto px-2 animate-fade-in animate-delay-1200">
                     <GameFilters filters={filters} onFiltersChange={setFilters} />
                   </div>
 
                   {/* Scroll indicator */}
-                  <div className="mt-12 sm:mt-16 lg:mt-20 text-muted-foreground/60 animate-fade-in" style={{ animationDelay: '1.4s' }}>
+                  <div className="mt-12 sm:mt-16 lg:mt-20 text-muted-foreground/60 animate-fade-in animate-delay-1400">
                     <p className="text-sm mb-2">Or browse all games below</p>
                     <div className="animate-bounce">↓</div>
                   </div>

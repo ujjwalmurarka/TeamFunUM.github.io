@@ -46,6 +46,8 @@ export const GameCard = ({ game }: GameCardProps) => {
               src={getThumbnailUrl(game.link)}
               alt={`${game.title} website thumbnail`}
               className="game-thumbnail"
+              width="400"
+              height="192"
               onLoad={() => setImageLoading(false)}
               onError={() => {
                 setImageError(true);

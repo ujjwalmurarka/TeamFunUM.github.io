@@ -152,4 +152,45 @@ All colors MUST be HSL.
   .sidebar-gradient {
     background: linear-gradient(180deg, hsl(var(--sidebar-background)), hsl(var(--sidebar-accent)));
   }
+
+  /* Animation delay classes to prevent layout shifts */
+  .animate-delay-200 {
+    animation-delay: 0.2s;
+    animation-fill-mode: both;
+  }
+  
+  .animate-delay-400 {
+    animation-delay: 0.4s;
+    animation-fill-mode: both;
+  }
+  
+  .animate-delay-600 {
+    animation-delay: 0.6s;
+    animation-fill-mode: both;
+  }
+  
+  .animate-delay-800 {
+    animation-delay: 0.8s;
+    animation-fill-mode: both;
+  }
+  
+  .animate-delay-1000 {
+    animation-delay: 1s;
+    animation-fill-mode: both;
+  }
+  
+  .animate-delay-1200 {
+    animation-delay: 1.2s;
+    animation-fill-mode: both;
+  }
+  
+  .animate-delay-1400 {
+    animation-delay: 1.4s;
+    animation-fill-mode: both;
+  }
+  
+  .animate-delay-2000 {
+    animation-delay: 2s;
+    animation-fill-mode: both;
+  }
 }
