@@ -14,7 +14,7 @@ import { useGameFilters } from "@/hooks/useGameFilters";
 import { useAuth } from "@/hooks/useAuth";
 
 import { Button } from "@/components/ui/button";
-import { Loader2, LogOut, User } from "lucide-react";
+import { Loader2, LogOut, User, Sparkles, Gamepad2, Zap, Clock, Trophy, Star } from "lucide-react";
 
 const getTimeBasedGreeting = () => {
   const hour = new Date().getHours();
@@ -70,9 +70,28 @@ const Index = () => {
           {/* Main Content Area */}
           <div className="flex-1">
             {/* Landing Section with I'm Feeling Lucky */}
-            <div className="min-h-screen flex flex-col">
+            <div className="min-h-screen flex flex-col relative overflow-hidden">
+              {/* Animated Background Elements */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-20 left-10 animate-pulse">
+                  <Gamepad2 className="w-8 h-8 text-primary/20" />
+                </div>
+                <div className="absolute top-32 right-16 animate-pulse delay-700">
+                  <Trophy className="w-6 h-6 text-primary/20" />
+                </div>
+                <div className="absolute bottom-40 left-20 animate-pulse delay-1000">
+                  <Star className="w-7 h-7 text-primary/20" />
+                </div>
+                <div className="absolute bottom-60 right-12 animate-pulse delay-500">
+                  <Zap className="w-5 h-5 text-primary/20" />
+                </div>
+                <div className="absolute top-64 left-1/3 animate-pulse delay-300">
+                  <Clock className="w-6 h-6 text-primary/20" />
+                </div>
+              </div>
+
               {/* Header with Auth */}
-              <div className="flex justify-end p-4 sm:p-6">
+              <div className="flex justify-end p-4 sm:p-6 relative z-10">
                 {isAuthenticated && (
                   <div className="flex items-center gap-2 sm:gap-3">
                     <div className="hidden sm:flex items-center gap-2 text-sm text-muted-foreground">
@@ -89,7 +108,7 @@ const Index = () => {
                           console.error('Error signing out:', error)
                         }
                       }}
-                      className="flex items-center gap-2"
+                      className="flex items-center gap-2 hover:scale-105 transition-transform"
                     >
                       <LogOut className="w-4 h-4" />
                       <span className="hidden sm:inline">Sign Out</span>
@@ -99,30 +118,55 @@ const Index = () => {
               </div>
 
               {/* Main Landing Content */}
-              <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 pb-8">
+              <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 pb-8 relative z-10">
                 <div className="text-center max-w-4xl mx-auto w-full">
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 lg:mb-8 text-foreground leading-tight">
+                  {/* Animated Welcome Badge */}
+                  <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full text-sm font-medium mb-6 animate-fade-in border border-primary/20">
+                    <Sparkles className="w-4 h-4" />
+                    Perfect for office teams
+                  </div>
+
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 lg:mb-8 text-foreground leading-tight animate-fade-in" style={{ animationDelay: '0.2s' }}>
                     {getTimeBasedGreeting()}
+                    <span className="inline-block animate-bounce ml-2" style={{ animationDelay: '2s' }}>👋</span>
                   </h1>
-                  <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-muted-foreground font-light mb-3 sm:mb-4 lg:mb-6 px-2">
+                  
+                  <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-muted-foreground font-light mb-3 sm:mb-4 lg:mb-6 px-2 animate-fade-in" style={{ animationDelay: '0.4s' }}>
                     {getTimeBasedTagline()}
                   </p>
-                  <p className="text-base sm:text-lg md:text-xl text-muted-foreground/80 mb-8 sm:mb-12 lg:mb-16 px-4 max-w-2xl mx-auto">
+                  
+                  <p className="text-base sm:text-lg md:text-xl text-muted-foreground/80 mb-8 sm:mb-12 lg:mb-16 px-4 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.6s' }}>
                     Skip the "what should we play?" debate • Perfect for 2-15 minute breaks
                   </p>
                   
+                  {/* Feature highlights */}
+                  <div className="flex flex-wrap justify-center gap-4 mb-8 sm:mb-12 lg:mb-16 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+                    <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-2 hover:scale-105 transition-transform">
+                      <Clock className="w-4 h-4 text-primary" />
+                      <span className="text-sm text-foreground">2-15 min games</span>
+                    </div>
+                    <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-2 hover:scale-105 transition-transform">
+                      <Trophy className="w-4 h-4 text-primary" />
+                      <span className="text-sm text-foreground">Team building</span>
+                    </div>
+                    <div className="flex items-center gap-2 bg-card border border-border rounded-lg px-3 py-2 hover:scale-105 transition-transform">
+                      <Zap className="w-4 h-4 text-primary" />
+                      <span className="text-sm text-foreground">Energy booster</span>
+                    </div>
+                  </div>
+                  
                   {/* I'm Feeling Lucky CTA */}
-                  <div className="mb-8 sm:mb-12 lg:mb-16">
+                  <div className="mb-8 sm:mb-12 lg:mb-16 animate-fade-in" style={{ animationDelay: '1s' }}>
                     <RandomGamePicker games={games} filteredGames={filteredGames} />
                   </div>
 
                   {/* Search and Filters */}
-                  <div className="max-w-2xl mx-auto px-2">
+                  <div className="max-w-2xl mx-auto px-2 animate-fade-in" style={{ animationDelay: '1.2s' }}>
                     <GameFilters filters={filters} onFiltersChange={setFilters} />
                   </div>
 
                   {/* Scroll indicator */}
-                  <div className="mt-12 sm:mt-16 lg:mt-20 text-muted-foreground/60">
+                  <div className="mt-12 sm:mt-16 lg:mt-20 text-muted-foreground/60 animate-fade-in" style={{ animationDelay: '1.4s' }}>
                     <p className="text-sm mb-2">Or browse all games below</p>
                     <div className="animate-bounce">↓</div>
                   </div>
@@ -137,9 +181,14 @@ const Index = () => {
             </div>
 
             {/* All Games Section */}
-            <div className="px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+            <div className="px-4 sm:px-6 lg:px-8 py-12 lg:py-16 bg-gradient-to-b from-background to-muted/20">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 mb-8 lg:mb-12">
-                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">🎯 All Team Games</h2>
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground flex items-center gap-3">
+                  <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                    🎯
+                  </div>
+                  All Team Games
+                </h2>
                 <div className="flex items-center justify-between gap-4">
                   <div className="text-sm sm:text-base text-muted-foreground">
                     {filteredGames.length} {filteredGames.length === 1 ? 'game' : 'games'} found
