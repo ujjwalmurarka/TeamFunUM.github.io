@@ -40,19 +40,14 @@ export const RandomGamePicker = ({ games, filteredGames }: RandomGamePickerProps
 
   return (
     <>
-      <div className="relative group">
-        {/* Glowing background effect */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-primary via-primary to-primary/80 rounded-xl blur opacity-40 group-hover:opacity-60 transition duration-300"></div>
-        
-        <Button
-          onClick={handleOpenPicker}
-          className="relative bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-game hover:shadow-hover transition-all duration-300 text-lg px-8 py-6 rounded-xl border border-primary/20 hover:scale-105"
-          size="lg"
-        >
-          <Shuffle className="w-6 h-6 mr-3 animate-pulse" />
-          I'm Feeling Lucky ✨
-        </Button>
-      </div>
+      <Button
+        onClick={handleOpenPicker}
+        className="bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground shadow-game hover:shadow-hover transition-all duration-300 text-lg px-8 py-6 rounded-xl border border-primary/20 hover:scale-105"
+        size="lg"
+      >
+        <Shuffle className="w-6 h-6 mr-3 animate-pulse" />
+        I'm Feeling Lucky ✨
+      </Button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="sm:max-w-2xl bg-card border-border">

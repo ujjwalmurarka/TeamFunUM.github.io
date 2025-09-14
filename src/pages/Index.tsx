@@ -71,24 +71,6 @@ const Index = () => {
           <div className="flex-1">
             {/* Landing Section with I'm Feeling Lucky */}
             <div className="min-h-screen flex flex-col relative overflow-hidden">
-              {/* Animated Background Elements */}
-              <div className="absolute inset-0 pointer-events-none">
-                <div className="absolute top-20 left-10 animate-pulse">
-                  <Gamepad2 className="w-8 h-8 text-primary/20" />
-                </div>
-                <div className="absolute top-32 right-16 animate-pulse delay-700">
-                  <Trophy className="w-6 h-6 text-primary/20" />
-                </div>
-                <div className="absolute bottom-40 left-20 animate-pulse delay-1000">
-                  <Star className="w-7 h-7 text-primary/20" />
-                </div>
-                <div className="absolute bottom-60 right-12 animate-pulse delay-500">
-                  <Zap className="w-5 h-5 text-primary/20" />
-                </div>
-                <div className="absolute top-64 left-1/3 animate-pulse delay-300">
-                  <Clock className="w-6 h-6 text-primary/20" />
-                </div>
-              </div>
 
               {/* Header with Auth */}
               <div className="flex justify-end p-4 sm:p-6 relative z-10">
