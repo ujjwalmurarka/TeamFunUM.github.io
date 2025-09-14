@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Shuffle, Sparkles, X } from "lucide-react";
+import { Shuffle, Sparkles, X, Play } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { GameCard } from "./GameCard";
 import { Game } from "@/types/game";
+import { useToast } from "@/hooks/use-toast";
 
 interface RandomGamePickerProps {
   games: Game[];
@@ -14,6 +15,7 @@ export const RandomGamePicker = ({ games, filteredGames }: RandomGamePickerProps
   const [isOpen, setIsOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const [isSpinning, setIsSpinning] = useState(false);
+  const { toast } = useToast();
 
   const pickRandomGame = () => {
     if (filteredGames.length === 0) return;
@@ -38,6 +40,16 @@ export const RandomGamePicker = ({ games, filteredGames }: RandomGamePickerProps
     pickRandomGame();
   };
 
+  const handlePlayGame = () => {
+    if (selectedGame) {
+      toast({
+        title: "Let's play!",
+        description: `Get ready for ${selectedGame.title}! Gather your team and have fun! 🎉`,
+      });
+      setIsOpen(false);
+    }
+  };
+
   return (
     <>
       <Button
@@ -50,13 +62,16 @@ export const RandomGamePicker = ({ games, filteredGames }: RandomGamePickerProps
       </Button>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="sm:max-w-2xl bg-card border-border">
+        <DialogContent className="sm:max-w-2xl bg-card border-border" aria-describedby="random-game-description">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-2xl">
               <Sparkles className="w-6 h-6 text-primary" />
               Random Game Picker
             </DialogTitle>
           </DialogHeader>
+          <div id="random-game-description" className="sr-only">
+            Pick a random game from your filtered selection for quick team activities
+          </div>
 
           <div className="space-y-6">
             {!selectedGame ? (
@@ -118,9 +133,10 @@ export const RandomGamePicker = ({ games, filteredGames }: RandomGamePickerProps
                     Try Another
                   </Button>
                   <Button 
-                    onClick={() => setIsOpen(false)}
+                    onClick={handlePlayGame}
                     className="bg-primary text-primary-foreground hover:bg-primary/90"
                   >
+                    <Play className="w-4 h-4 mr-2" />
                     Let's Play This!
                   </Button>
                 </div>
