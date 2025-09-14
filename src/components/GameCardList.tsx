@@ -1,8 +1,22 @@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { ExternalLink, Clock, Users } from 'lucide-react'
+import { ExternalLink, Clock, Users, Gamepad2, Target, Zap, MessageSquare } from 'lucide-react'
 import { Game } from '@/types/game'
 import { useGameAnalytics } from '@/hooks/useGameAnalytics'
+
+const getGameIcon = (type: string) => {
+  switch (type.toLowerCase()) {
+    case 'ice breaker':
+    case 'icebreaker':
+      return MessageSquare;
+    case 'energizer':
+      return Zap;
+    case 'problem solving':
+      return Target;
+    default:
+      return Gamepad2;
+  }
+};
 
 interface GameCardListProps {
   game: Game
@@ -10,12 +24,22 @@ interface GameCardListProps {
 
 export const GameCardList = ({ game }: GameCardListProps) => {
   const { trackGameClick } = useGameAnalytics();
+  const IconComponent = getGameIcon(game.type);
 
   const handleGameClick = async () => {
     await trackGameClick(game.id);
   };
+  
   return (
-    <div className="flex items-center p-4 border rounded-lg bg-card hover:bg-accent/50 transition-colors">
+    <div className="flex items-center p-4 border rounded-lg bg-card hover:bg-accent/50 transition-colors gap-4">
+      {/* Thumbnail */}
+      <div className="flex-shrink-0">
+        <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+          <IconComponent className="w-6 h-6 text-primary" />
+        </div>
+      </div>
+      
+      {/* Content */}
       <div className="flex-1 min-w-0">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 min-w-0">
