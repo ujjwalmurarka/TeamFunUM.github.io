@@ -16,6 +16,21 @@ import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Loader2, LogOut, User } from "lucide-react";
 
+const getTimeBasedGreeting = () => {
+  const hour = new Date().getHours();
+  if (hour < 12) return "Good morning";
+  if (hour < 17) return "Good afternoon";
+  return "Good evening";
+};
+
+const getTimeBasedTagline = () => {
+  const hour = new Date().getHours();
+  if (hour < 15) {
+    return "Play a game to start your day";
+  }
+  return "Play a game to wrap up your day";
+};
+
 const Index = () => {
   const { games, loading, error, refetch, isUsingDatabase } = useGames();
   const { filters, setFilters, filteredGames } = useGameFilters(games);
@@ -55,16 +70,16 @@ const Index = () => {
           {/* Main Content Area */}
           <div className="flex-1 p-4 sm:p-6 lg:p-8">
             {/* Header */}
-            <div className="mb-6 lg:mb-8">
+            <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 rounded-2xl p-6 sm:p-8 lg:p-12 mb-8 text-white">
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
                 <div className="flex-1">
-                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground mb-2 lg:mb-3">Discover Games</h1>
-                  <p className="text-sm sm:text-base lg:text-lg text-muted-foreground">Find the perfect game for your team building session</p>
+                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 lg:mb-4">{getTimeBasedGreeting()}</h1>
+                  <p className="text-lg sm:text-xl lg:text-2xl text-blue-100 font-light">{getTimeBasedTagline()}</p>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0 self-start">
                   {isAuthenticated && (
                     <>
-                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-2 text-sm text-white/80">
                         <User className="w-4 h-4" />
                         {user?.email}
                       </div>
@@ -78,7 +93,7 @@ const Index = () => {
                             console.error('Error signing out:', error)
                           }
                         }}
-                        className="flex items-center gap-2"
+                        className="flex items-center gap-2 border-white/30 text-white hover:bg-white/10 hover:text-white"
                       >
                         <LogOut className="w-4 h-4" />
                         Sign Out
