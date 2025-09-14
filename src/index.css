@@ -8,66 +8,66 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Game Catalogue Theme - Soft Pastel Design */
-    --background: 330 100% 98%;
-    --foreground: 240 15% 25%;
+    /* Game Catalogue Theme - Soft Blue & Sage Green Design */
+    --background: 200 30% 98%;
+    --foreground: 200 15% 25%;
 
     --card: 0 0% 100%;
-    --card-foreground: 240 15% 25%;
+    --card-foreground: 200 15% 25%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 15% 25%;
+    --popover-foreground: 200 15% 25%;
 
-    --primary: 280 60% 70%;
+    --primary: 200 60% 70%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 200 40% 92%;
-    --secondary-foreground: 240 15% 25%;
+    --secondary: 140 30% 88%;
+    --secondary-foreground: 200 15% 25%;
 
-    --muted: 210 30% 96%;
-    --muted-foreground: 240 8% 55%;
+    --muted: 180 25% 96%;
+    --muted-foreground: 200 8% 55%;
 
-    --accent: 160 40% 90%;
-    --accent-foreground: 240 15% 25%;
+    --accent: 130 35% 85%;
+    --accent-foreground: 200 15% 25%;
 
     --destructive: 0 65% 75%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 20% 88%;
-    --input: 220 20% 88%;
-    --ring: 280 60% 70%;
+    --border: 180 20% 88%;
+    --input: 180 20% 88%;
+    --ring: 200 60% 70%;
 
     --radius: 0.75rem;
 
     /* Gaming-specific pastel colors */
-    --game-primary: 280 60% 70%;
-    --game-accent: 200 50% 80%;
+    --game-primary: 200 60% 70%;
+    --game-accent: 130 40% 75%;
     --game-success: 140 40% 75%;
     --game-warning: 45 60% 80%;
     --game-info: 220 50% 80%;
 
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(280 60% 70%), hsl(200 50% 80%));
-    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(210 30% 96%));
-    --gradient-hero: linear-gradient(135deg, hsl(330 100% 98%), hsl(210 30% 96%));
+    --gradient-primary: linear-gradient(135deg, hsl(200 60% 70%), hsl(130 40% 75%));
+    --gradient-card: linear-gradient(135deg, hsl(0 0% 100%), hsl(180 25% 96%));
+    --gradient-hero: linear-gradient(135deg, hsl(200 30% 98%), hsl(180 25% 96%));
 
     /* Shadows */
-    --shadow-game: 0 8px 32px hsl(280 60% 70% / 0.15);
-    --shadow-card: 0 4px 16px hsl(240 15% 25% / 0.08);
-    --shadow-hover: 0 12px 40px hsl(280 60% 70% / 0.25);
+    --shadow-game: 0 8px 32px hsl(200 60% 70% / 0.15);
+    --shadow-card: 0 4px 16px hsl(200 15% 25% / 0.08);
+    --shadow-hover: 0 12px 40px hsl(200 60% 70% / 0.25);
 
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --sidebar-background: 330 100% 98%;
-    --sidebar-foreground: 240 15% 25%;
-    --sidebar-primary: 280 60% 70%;
+    --sidebar-background: 200 30% 98%;
+    --sidebar-foreground: 200 15% 25%;
+    --sidebar-primary: 200 60% 70%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 200 40% 92%;
-    --sidebar-accent-foreground: 240 15% 25%;
-    --sidebar-border: 220 20% 88%;
-    --sidebar-ring: 280 60% 70%;
+    --sidebar-accent: 140 30% 88%;
+    --sidebar-accent-foreground: 200 15% 25%;
+    --sidebar-border: 180 20% 88%;
+    --sidebar-ring: 200 60% 70%;
   }
 
   .dark {
