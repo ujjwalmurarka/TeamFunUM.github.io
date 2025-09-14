@@ -41,10 +41,12 @@ export const RandomGamePicker = ({ games, filteredGames }: RandomGamePickerProps
   };
 
   const handlePlayGame = () => {
-    if (selectedGame) {
+    if (selectedGame && selectedGame.link) {
+      // Open the game link in a new tab
+      window.open(selectedGame.link, '_blank', 'noopener,noreferrer');
       toast({
-        title: "Let's play!",
-        description: `Get ready for ${selectedGame.title}! Gather your team and have fun! 🎉`,
+        title: "Opening game!",
+        description: `${selectedGame.title} is opening in a new tab. Have fun! 🎉`,
       });
       setIsOpen(false);
     }
