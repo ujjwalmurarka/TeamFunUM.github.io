@@ -6,7 +6,7 @@ import { RandomGamePicker } from "@/components/RandomGamePicker";
 
 import { GameFilters } from "@/components/GameFilters";
 import { AuthForm } from "@/components/AuthForm";
-import { PopularGamesSection } from "@/components/PopularGamesSection";
+
 import { AnalyticsDashboard } from "@/components/AnalyticsDashboard";
 import { ViewToggle } from "@/components/ViewToggle";
 import { useGames } from "@/hooks/useGames";
@@ -101,8 +101,6 @@ const Index = () => {
               <GameFilters filters={filters} onFiltersChange={setFilters} />
             </div>
 
-            {/* Popular Games Section */}
-            <PopularGamesSection />
 
             {/* Analytics Dashboard for authenticated users */}
             <AnalyticsDashboard />
