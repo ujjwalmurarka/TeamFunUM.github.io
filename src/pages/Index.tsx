@@ -68,65 +68,80 @@ const Index = () => {
 
 
           {/* Main Content Area */}
-          <div className="flex-1 p-4 sm:p-6 lg:p-8">
-            {/* Header */}
-            <div className="bg-gradient-to-r from-blue-600 via-blue-700 to-blue-800 rounded-2xl p-6 sm:p-8 lg:p-12 mb-8 text-white">
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
-                <div className="flex-1">
-                  <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 lg:mb-4">{getTimeBasedGreeting()}</h1>
-                  <p className="text-lg sm:text-xl lg:text-2xl text-blue-100 font-light mb-2">{getTimeBasedTagline()}</p>
-                  <p className="text-sm sm:text-base text-blue-200/80">Skip the "what should we play?" debate • Perfect for 2-15 minute breaks</p>
-                </div>
-                <div className="flex items-center gap-3 flex-shrink-0 self-start">
-                  {isAuthenticated && (
-                    <>
-                      <div className="flex items-center gap-2 text-sm text-white/80">
-                        <User className="w-4 h-4" />
-                        {user?.email}
-                      </div>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={async () => {
-                          try {
-                            await signOut()
-                          } catch (error) {
-                            console.error('Error signing out:', error)
-                          }
-                        }}
-                        className="flex items-center gap-2 border-white/30 text-white hover:bg-white/10 hover:text-white"
-                      >
-                        <LogOut className="w-4 h-4" />
-                        Sign Out
-                      </Button>
-                    </>
-                  )}
+          <div className="flex-1">
+            {/* Landing Section with I'm Feeling Lucky */}
+            <div className="min-h-screen flex flex-col">
+              {/* Header with Auth */}
+              <div className="flex justify-end p-4 sm:p-6">
+                {isAuthenticated && (
+                  <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                      <User className="w-4 h-4" />
+                      {user?.email}
+                    </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={async () => {
+                        try {
+                          await signOut()
+                        } catch (error) {
+                          console.error('Error signing out:', error)
+                        }
+                      }}
+                      className="flex items-center gap-2"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      Sign Out
+                    </Button>
+                  </div>
+                )}
+              </div>
+
+              {/* Main Landing Content */}
+              <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+                <div className="text-center max-w-4xl mx-auto">
+                  <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 lg:mb-8 text-foreground">
+                    {getTimeBasedGreeting()}
+                  </h1>
+                  <p className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground font-light mb-4 lg:mb-6">
+                    {getTimeBasedTagline()}
+                  </p>
+                  <p className="text-lg sm:text-xl text-muted-foreground/80 mb-12 lg:mb-16">
+                    Skip the "what should we play?" debate • Perfect for 2-15 minute breaks
+                  </p>
                   
-                  <RandomGamePicker games={games} filteredGames={filteredGames} />
+                  {/* I'm Feeling Lucky CTA */}
+                  <div className="mb-12 lg:mb-16">
+                    <RandomGamePicker games={games} filteredGames={filteredGames} />
+                  </div>
+
+                  {/* Search and Filters */}
+                  <div className="max-w-2xl mx-auto">
+                    <GameFilters filters={filters} onFiltersChange={setFilters} />
+                  </div>
+
+                  {/* Scroll indicator */}
+                  <div className="mt-16 lg:mt-20 text-muted-foreground/60">
+                    <p className="text-sm mb-2">Or browse all games below</p>
+                    <div className="animate-bounce">↓</div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Mobile/Tablet Filters */}
-            <div className="block lg:hidden mb-6">
-              <GameFilters filters={filters} onFiltersChange={setFilters} />
-            </div>
-
-            {/* Desktop Filters Top Bar - Sticky */}
-            <div className="hidden lg:block sticky top-0 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border p-4 mb-6">
-              <GameFilters filters={filters} onFiltersChange={setFilters} />
-            </div>
-
 
             {/* Analytics Dashboard for authenticated users */}
-            <AnalyticsDashboard />
+            <div className="px-4 sm:px-6 lg:px-8">
+              <AnalyticsDashboard />
+            </div>
 
-            {/* All Games */}
-            <div>
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 mb-4 lg:mb-6">
-                <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-foreground">🎯 Quick Team Games</h2>
+            {/* All Games Section */}
+            <div className="px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 mb-8 lg:mb-12">
+                <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-foreground">🎯 All Team Games</h2>
                 <div className="flex items-center justify-between gap-4">
-                  <div className="text-xs sm:text-sm text-muted-foreground">
+                  <div className="text-sm sm:text-base text-muted-foreground">
                     {filteredGames.length} {filteredGames.length === 1 ? 'game' : 'games'} found
                   </div>
                   <ViewToggle view={viewMode} onViewChange={setViewMode} />
@@ -153,13 +168,13 @@ const Index = () => {
                   ))}
                 </div>
               )}
-            </div>
-            
-            {/* Admin Contact Section */}
-            <div className="mt-12 pt-8 border-t border-border text-center">
-              <p className="text-sm text-muted-foreground">
-                Got a game idea perfect for office teams? Contact your admin to add it to the collection.
-              </p>
+              
+              {/* Admin Contact Section */}
+              <div className="mt-16 pt-8 border-t border-border text-center">
+                <p className="text-sm text-muted-foreground">
+                  Got a game idea perfect for office teams? Contact your admin to add it to the collection.
+                </p>
+              </div>
             </div>
           </div>
         </div>
