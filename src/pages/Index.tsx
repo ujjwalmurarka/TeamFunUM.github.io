@@ -18,17 +18,17 @@ import { Loader2, LogOut, User } from "lucide-react";
 
 const getTimeBasedGreeting = () => {
   const hour = new Date().getHours();
-  if (hour < 12) return "Good morning";
-  if (hour < 17) return "Good afternoon";
-  return "Good evening";
+  if (hour < 12) return "Good morning, team";
+  if (hour < 17) return "Good afternoon, team";
+  return "Good evening, team";
 };
 
 const getTimeBasedTagline = () => {
   const hour = new Date().getHours();
   if (hour < 15) {
-    return "Play a game to start your day";
+    return "Quick games to energize your scrum or standup";
   }
-  return "Play a game to wrap up your day";
+  return "Wind down with a quick team game before you wrap up";
 };
 
 const Index = () => {
@@ -74,7 +74,8 @@ const Index = () => {
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 sm:gap-6">
                 <div className="flex-1">
                   <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 lg:mb-4">{getTimeBasedGreeting()}</h1>
-                  <p className="text-lg sm:text-xl lg:text-2xl text-blue-100 font-light">{getTimeBasedTagline()}</p>
+                  <p className="text-lg sm:text-xl lg:text-2xl text-blue-100 font-light mb-2">{getTimeBasedTagline()}</p>
+                  <p className="text-sm sm:text-base text-blue-200/80">Skip the "what should we play?" debate • Perfect for 2-15 minute breaks</p>
                 </div>
                 <div className="flex items-center gap-3 flex-shrink-0 self-start">
                   {isAuthenticated && (
@@ -123,7 +124,7 @@ const Index = () => {
             {/* All Games */}
             <div>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 mb-4 lg:mb-6">
-                <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-foreground">🎯 Games</h2>
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold text-foreground">🎯 Quick Team Games</h2>
                 <div className="flex items-center justify-between gap-4">
                   <div className="text-xs sm:text-sm text-muted-foreground">
                     {filteredGames.length} {filteredGames.length === 1 ? 'game' : 'games'} found
@@ -157,7 +158,7 @@ const Index = () => {
             {/* Admin Contact Section */}
             <div className="mt-12 pt-8 border-t border-border text-center">
               <p className="text-sm text-muted-foreground">
-                Want to add a new game? Contact the admin team for submissions.
+                Got a game idea perfect for office teams? Contact your admin to add it to the collection.
               </p>
             </div>
           </div>
