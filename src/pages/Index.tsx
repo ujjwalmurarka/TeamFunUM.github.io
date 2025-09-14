@@ -74,10 +74,10 @@ const Index = () => {
               {/* Header with Auth */}
               <div className="flex justify-end p-4 sm:p-6">
                 {isAuthenticated && (
-                  <div className="flex items-center gap-3">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <div className="hidden sm:flex items-center gap-2 text-sm text-muted-foreground">
                       <User className="w-4 h-4" />
-                      {user?.email}
+                      <span className="truncate max-w-32">{user?.email}</span>
                     </div>
                     <Button
                       variant="outline"
@@ -92,37 +92,37 @@ const Index = () => {
                       className="flex items-center gap-2"
                     >
                       <LogOut className="w-4 h-4" />
-                      Sign Out
+                      <span className="hidden sm:inline">Sign Out</span>
                     </Button>
                   </div>
                 )}
               </div>
 
               {/* Main Landing Content */}
-              <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-                <div className="text-center max-w-4xl mx-auto">
-                  <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold mb-6 lg:mb-8 text-foreground">
+              <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 pb-8">
+                <div className="text-center max-w-4xl mx-auto w-full">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 lg:mb-8 text-foreground leading-tight">
                     {getTimeBasedGreeting()}
                   </h1>
-                  <p className="text-xl sm:text-2xl lg:text-3xl text-muted-foreground font-light mb-4 lg:mb-6">
+                  <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-muted-foreground font-light mb-3 sm:mb-4 lg:mb-6 px-2">
                     {getTimeBasedTagline()}
                   </p>
-                  <p className="text-lg sm:text-xl text-muted-foreground/80 mb-12 lg:mb-16">
+                  <p className="text-base sm:text-lg md:text-xl text-muted-foreground/80 mb-8 sm:mb-12 lg:mb-16 px-4 max-w-2xl mx-auto">
                     Skip the "what should we play?" debate • Perfect for 2-15 minute breaks
                   </p>
                   
                   {/* I'm Feeling Lucky CTA */}
-                  <div className="mb-12 lg:mb-16">
+                  <div className="mb-8 sm:mb-12 lg:mb-16">
                     <RandomGamePicker games={games} filteredGames={filteredGames} />
                   </div>
 
                   {/* Search and Filters */}
-                  <div className="max-w-2xl mx-auto">
+                  <div className="max-w-2xl mx-auto px-2">
                     <GameFilters filters={filters} onFiltersChange={setFilters} />
                   </div>
 
                   {/* Scroll indicator */}
-                  <div className="mt-16 lg:mt-20 text-muted-foreground/60">
+                  <div className="mt-12 sm:mt-16 lg:mt-20 text-muted-foreground/60">
                     <p className="text-sm mb-2">Or browse all games below</p>
                     <div className="animate-bounce">↓</div>
                   </div>
